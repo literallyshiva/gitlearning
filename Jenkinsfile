@@ -6,11 +6,6 @@ pipeline {
                 echo 'poda'
             }
         }
-        stage('checkout') {
-            steps {
-                git 'https://github.com/literallyshiva/gitlearning.git'
-            }
-        }
         stage('build') {
             steps {
                 echo 'skipping build'
