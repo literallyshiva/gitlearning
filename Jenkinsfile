@@ -18,10 +18,29 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh 'sudo apt-get update && sudo apt-get install -y nginx'
-                sh 'sudo cp index.html /var/www/html/'
-                sh 'sudo systemctl restart nginx'
+                script {
+                    // Running apt-get update and installing nginx
+                    sh '''
+                    echo "${sudoPassword}" | sudo -S apt-get update
+                    echo "${sudoPassword}" | sudo -S apt-get install -y nginx
+                    '''
+                    
+                    // Copying index.html to nginx directory
+                    sh '''
+                    echo "${sudoPassword}" | sudo -S cp index.html /var/www/html/
+                    '''
+
+                    // Restarting nginx service
+                    sh '''
+                    echo "${sudoPassword}" | sudo -S systemctl restart nginx
+                    '''
+                }
             }
+        }
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
