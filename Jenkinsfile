@@ -1,11 +1,16 @@
 pipeline {
     agent any
     stages {
-        stage('welcome') {
+        stage('Welcome') {
             steps {
-                echo 'poda'
+                echo 'Hi , You are inside the pipeline'
             }
         }
+        // stage('Checkout') {
+        //     steps {
+        //         git 'https://github.com/AnandLoganathan/jenkinspipeline.git'
+        //     } 
+        // }
         stage('build') {
             steps {
                 echo 'skipping build'
@@ -18,29 +23,10 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                script {
-                    // Running apt-get update and installing nginx
-                    sh '''
-                    echo "${sudoPassword}" | sudo -S apt-get update
-                    echo "${sudoPassword}" | sudo -S apt-get install -y nginx
-                    '''
-                    
-                    // Copying index.html to nginx directory
-                    sh '''
-                    echo "${sudoPassword}" | sudo -S cp index.html /var/www/html/
-                    '''
-
-                    // Restarting nginx service
-                    sh '''
-                    echo "${sudoPassword}" | sudo -S systemctl restart nginx
-                    '''
-                }
+                sh 'sudo apt-get update && sudo apt-get install -y nginx'
+                sh 'sudo cp index.html /var/www/html/'
+                sh 'sudo systemctl restart nginx'
             }
-        }
-    }
-    post {
-        always {
-            cleanWs()
         }
     }
 }
