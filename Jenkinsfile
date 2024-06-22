@@ -22,7 +22,7 @@ pipeline {
             emailext(
                 body: 'Hi, the latest build on your project is successful',
                 subject: 'Build notification',
-                to: 'shivamalu2103@gmail.com'
+                to: 'shivanandt120@gmail.com'
             )
         }
     }
