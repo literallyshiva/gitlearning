@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Welcome') {
             steps {
-                echo 'Hi , You are inside the pipeline'
+                echo 'Hi, You are inside the pipeline'
             }
         }
         stage('build') {
@@ -17,4 +17,14 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            emailext(
+                body: 'Hi, the latest build on your project is successful',
+                subject: 'Build notification',
+                to: 'shivanandt120@gmail.com'
+            )
+        }
+    }
 }
+
