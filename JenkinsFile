@@ -8,7 +8,7 @@ pipeline {1
         }
         stage('checkout') {
             steps {
-                git 'https://github.com/literallyshiva/gitlearning.git'
+                git 'hacacttps://github.com/literallyshiva/gitlearning.git'
             }
         }
         stage('build') {
